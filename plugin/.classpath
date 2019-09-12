@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/Lightling/Libraries/Downloads/Paper-API-1.14.4-14513c3-20190910-1851.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="https://papermc.io/javadocs/paper/1.14/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="E:/Lightling/Libraries/Downloads/buildtools/Spigot/Spigot-API/target/spigot-api-1.14.4-R0.1-SNAPSHOT-shaded.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="https://hub.spigotmc.org/javadocs/spigot/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
