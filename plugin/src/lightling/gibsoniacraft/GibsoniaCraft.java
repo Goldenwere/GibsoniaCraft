@@ -10,7 +10,7 @@ public final class GibsoniaCraft extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		
+		excavatorClass = new Excavator(this);
 	}
 	
 	@Override
