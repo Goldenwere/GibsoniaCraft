@@ -127,11 +127,11 @@ public class Excavator
 		diamondExcRecipe = new ShapedRecipe(diamondExcKey, diamondExcavator);
 		
 		// Define recipe shapes
-		woodExcRecipe.shape(new String[] { " x ", " xix ", " x "});
-		stoneExcRecipe.shape(new String[] { " x ", " xix ", " x "});
-		ironExcRecipe.shape(new String[] { " x ", " xix ", " x "});
-		goldExcRecipe.shape(new String[] { " x ", " xix ", " x "});
-		diamondExcRecipe.shape(new String[] { " x ", " xix ", " x "});
+		woodExcRecipe.shape(new String[] { " x ", "xix", " x "});
+		stoneExcRecipe.shape(new String[] { " x ", "xix", " x "});
+		ironExcRecipe.shape(new String[] { " x ", "xix", " x "});
+		goldExcRecipe.shape(new String[] { " x ", "xix", " x "});
+		diamondExcRecipe.shape(new String[] { " x ", "xix", " x "});
 		
 		// Define recipe choice ingredients for wood excavator
 		List<Material> woodChoices = new ArrayList<Material>()

@@ -1,5 +1,6 @@
-main: lightling.gibsoniacraft.gibsoniacraft
+main: lightling.gibsoniacraft.GibsoniaCraft
 name: GibsoniaCraft
 version: 1.0
 author: Lightling
 description: Adds some small additions/changes to a PaperMC server
+api-version: 1.14
