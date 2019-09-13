@@ -2,10 +2,12 @@ package lightling.gibsoniacraft.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.World;
 
 /**
@@ -39,9 +41,14 @@ public class ToolUtil
 	 * @param mat The material being checked
 	 * @return Whether the item is a valid hammer
 	 */
-	public static boolean IsHammer(Material mat) 
+	public static boolean IsHammer(ItemStack item) 
 	{
-		return BlockRef.ValidHammers.contains(mat);
+		List<String> lore = item.getLore();
+		Material mat = item.getType();
+		if (lore != null && mat != null)
+			return BlockRef.ValidHammers.contains(mat) && lore.contains("Based off of item from PowerMining/Tinkers' Construct");
+		else
+			return false;
 	}
 	
 	/**
@@ -49,9 +56,14 @@ public class ToolUtil
 	 * @param mat The material being checked
 	 * @return Whether the item is a valid excavator
 	 */
-	public static boolean IsExcavator(Material mat) 
+	public static boolean IsExcavator(ItemStack item) 
 	{
-		return BlockRef.ValidExcavators.contains(mat);
+		List<String> lore = item.getLore();
+		Material mat = item.getType();
+		if (lore != null && mat != null)
+			return BlockRef.ValidExcavators.contains(mat) && lore.contains("Based off of item from PowerMining/Tinkers' Construct");
+		else
+			return false;
 	}
 	
 	/**
@@ -60,7 +72,7 @@ public class ToolUtil
 	 * @param block The block that should be mineable
 	 * @return Valid or invalid action
 	 */
-	public static boolean IsHammerable(Material ham, Material block) 
+	public static boolean IsHammerable(ItemStack ham, Material block) 
 	{
 		return IsMineable(block) && IsHammer(ham);
 	}
@@ -71,7 +83,7 @@ public class ToolUtil
 	 * @param block The block that should be diggable
 	 * @return Valid or invalid action
 	 */
-	public static boolean IsExcavatable(Material exc, Material block) 
+	public static boolean IsExcavatable(ItemStack exc, Material block) 
 	{
 		return IsDiggable(block) && IsExcavator(exc);
 	}

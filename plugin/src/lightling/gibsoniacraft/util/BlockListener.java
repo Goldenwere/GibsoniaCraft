@@ -48,7 +48,7 @@ public class BlockListener implements Listener
 			{
 				return;
 			}
-	        if (!ToolUtil.IsExcavator(itemType) && !ToolUtil.IsHammer(itemType))
+	        if (!ToolUtil.IsExcavator(item) && !ToolUtil.IsHammer(item))
 	        {
 	        	return;
 	        }
@@ -77,8 +77,8 @@ public class BlockListener implements Listener
         	Location blockLoc = b.getLocation();
         	
         	// Determine whether an appropriate tool is being used
-        	boolean isExc = ToolUtil.IsExcavatable(itemType, blockMat);
-        	boolean isHam = ToolUtil.IsHammerable(itemType, blockMat);
+        	boolean isExc = ToolUtil.IsExcavatable(item, blockMat);
+        	boolean isHam = ToolUtil.IsHammerable(item, blockMat);
         	
         	// If using the correct tools, break surrounding blocks
         	if (isExc || isHam)
