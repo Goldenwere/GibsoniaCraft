@@ -1,21 +1,21 @@
 package lightling.gibsoniacraft.crafting;
 
 // Collections
-import java.util.List;											// Needed for recipe choices and lore
-import java.util.ArrayList;										// Needed for recipe choices and lore
+import java.util.List;								// Needed for recipe choices and lore
+import java.util.ArrayList;							// Needed for recipe choices and lore
 
 // Excavator-specific
-import org.bukkit.NamespacedKey;								// Needed for defining excavator's item key
-import org.bukkit.inventory.meta.ItemMeta;						// Needed for defining excavator's item meta information
-import org.bukkit.Material;										// Needed for defining pre-existing items
-import org.bukkit.inventory.ShapedRecipe;						// Needed for defining crafting recipes
-import org.bukkit.inventory.RecipeChoice;						// Needed for wood-excavator's wood choices
-import org.bukkit.inventory.ItemStack;							// Excavator is a type of item, which uses ItemStack
+import org.bukkit.NamespacedKey;					// Needed for defining excavator's item key
+import org.bukkit.inventory.meta.ItemMeta;			// Needed for defining excavator's item meta information
+import org.bukkit.Material;							// Needed for defining pre-existing items
+import org.bukkit.inventory.ShapedRecipe;			// Needed for defining crafting recipes
+import org.bukkit.inventory.RecipeChoice;			// Needed for wood-excavator's wood choices
+import org.bukkit.inventory.ItemStack;				// Excavator is a type of item, which uses ItemStack
 
 // Plugin-specific
-import org.bukkit.plugin.java.JavaPlugin;						// For registering the excavator within the plugin
-import org.bukkit.plugin.Plugin;								// Involved in setting up namespaced-key
-import org.bukkit.Server;										// For registering recipes on the server
+import org.bukkit.plugin.java.JavaPlugin;			// For registering the excavator within the plugin
+import org.bukkit.plugin.Plugin;					// Involved in setting up namespaced-key
+import org.bukkit.Server;							// For registering recipes on the server
 
 /**
  * An excavator is a shovel-based item that digs in a 3x3 radius as opposed to a singular block
@@ -90,7 +90,7 @@ public class Excavator
 		ItemMeta diamondExcMeta = diamondExcavator.getItemMeta();
 		
 		// Define lore
-		String loreString = "Based off of item from Tinkers' Construct";
+		String loreString = "Based off of item from PowerMining/Tinkers' Construct";
 		List<String> lore = new ArrayList<String>() {{ add(loreString); }};
 		woodExcMeta.setLore(lore);
 		stoneExcMeta.setLore(lore);
