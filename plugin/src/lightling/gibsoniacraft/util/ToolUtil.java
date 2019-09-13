@@ -8,6 +8,10 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.World;
 
+/**
+ * Manages calculations regarding added tools
+ * @author Lightling
+ */
 public class ToolUtil 
 {
 	/**
@@ -15,7 +19,7 @@ public class ToolUtil
 	 * @param mat The material being checked
 	 * @return Whether the block is mineable
 	 */
-	public boolean IsMineable(Material mat) 
+	public static boolean IsMineable(Material mat) 
 	{
 		return BlockRef.ValidHammerBlocks.contains(mat);
 	}
@@ -25,7 +29,7 @@ public class ToolUtil
 	 * @param mat The material being checked
 	 * @return Whether the block is diggable
 	 */
-	public boolean IsDiggable(Material mat) 
+	public static boolean IsDiggable(Material mat) 
 	{
 		return BlockRef.ValidExcavatorBlocks.contains(mat);
 	}
@@ -35,7 +39,7 @@ public class ToolUtil
 	 * @param mat The material being checked
 	 * @return Whether the item is a valid hammer
 	 */
-	public boolean IsHammer(Material mat) 
+	public static boolean IsHammer(Material mat) 
 	{
 		return BlockRef.ValidHammers.contains(mat);
 	}
@@ -45,7 +49,7 @@ public class ToolUtil
 	 * @param mat The material being checked
 	 * @return Whether the item is a valid excavator
 	 */
-	public boolean IsExcavator(Material mat) 
+	public static boolean IsExcavator(Material mat) 
 	{
 		return BlockRef.ValidExcavators.contains(mat);
 	}
@@ -56,7 +60,7 @@ public class ToolUtil
 	 * @param block The block that should be mineable
 	 * @return Valid or invalid action
 	 */
-	public boolean IsHammerable(Material ham, Material block) 
+	public static boolean IsHammerable(Material ham, Material block) 
 	{
 		return IsMineable(block) && IsHammer(ham);
 	}
@@ -67,7 +71,7 @@ public class ToolUtil
 	 * @param block The block that should be diggable
 	 * @return Valid or invalid action
 	 */
-	public boolean IsExcavatable(Material exc, Material block) 
+	public static boolean IsExcavatable(Material exc, Material block) 
 	{
 		return IsDiggable(block) && IsExcavator(exc);
 	}
@@ -138,4 +142,8 @@ public class ToolUtil
         
         return blocks;
 	}
+	
+	// TO-DO: Implement enchantments
+	
+	// TO-DO: Implement scythes (3x3 harvest) and tillers (3x3 hoe)
 }

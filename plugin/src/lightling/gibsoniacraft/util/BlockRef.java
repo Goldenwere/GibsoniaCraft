@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import org.bukkit.Material;
 
+/**
+ * Contains constant blocks and items of a certain type
+ * @author Lightling
+ */
 public class BlockRef 
 {
 	/**

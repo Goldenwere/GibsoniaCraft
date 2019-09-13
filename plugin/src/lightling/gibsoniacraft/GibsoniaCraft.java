@@ -3,10 +3,12 @@ package lightling.gibsoniacraft;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import lightling.gibsoniacraft.crafting.Excavator;
+import lightling.gibsoniacraft.util.PlayerInteractListener;
 
 public final class GibsoniaCraft extends JavaPlugin {
 	
 	private Excavator excavatorClass;
+	private PlayerInteractListener pListener;
 	
 	@Override
 	public void onEnable() {
@@ -18,4 +20,9 @@ public final class GibsoniaCraft extends JavaPlugin {
 		
 	}
 
+	public PlayerInteractListener GetPlayerInteractListener()
+	{
+		return pListener;
+	}
+	
 }
