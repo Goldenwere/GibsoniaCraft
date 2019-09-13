@@ -26,13 +26,15 @@ import org.bukkit.enchantments.Enchantment;
  */
 public class BlockListener implements Listener
 {		
+	GibsoniaCraft gcPlugin;
 	public BlockListener(GibsoniaCraft plugin) 
 	{
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		gcPlugin = plugin;
+		gcPlugin.getServer().getPluginManager().registerEvents(this, gcPlugin);
 	}
 	
 	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-	public void Break(GibsoniaCraft plugin, BlockBreakEvent bbEvent)
+	public void Break(BlockBreakEvent bbEvent)
 	{
 		// Grab current tool information
 		Player player = bbEvent.getPlayer();
@@ -43,15 +45,19 @@ public class BlockListener implements Listener
 		if (player != null && (player instanceof Player))
 		{
 			if (player.isSneaking())
+			{
 				return;
-	        if (!ToolUtil.IsExcavator(itemType) || !ToolUtil.IsHammer(itemType))
-	            return;
+			}
+	        if (!ToolUtil.IsExcavator(itemType) && !ToolUtil.IsHammer(itemType))
+	        {
+	        	return;
+	        }
 		}
 		
 		// Get blockface information via the player listener
 		Block block = bbEvent.getBlock();
 		String pName = player.getName();
-        PlayerInteractListener pListener = plugin.GetPlayerInteractListener();
+        PlayerInteractListener pListener = gcPlugin.GetPlayerInteractListener();
         BlockFace blockFace = pListener.GetFaceByName(pName);
         
         // getDurability deprecated, must now go through meta information
