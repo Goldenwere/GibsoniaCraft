@@ -90,7 +90,7 @@ public class LumberAxe
 		ItemMeta diamondLumAxeMeta = diamondLumberAxe.getItemMeta();
 		
 		// Define lore
-		String loreString = "Based off of item from PowerMining/Tinkers' Construct";
+		String loreString = "Based off of item from Tinkers' Construct";
 		List<String> lore = new ArrayList<String>() {{ add(loreString); }};
 		woodLumAxeMeta.setLore(lore);
 		stoneLumAxeMeta.setLore(lore);

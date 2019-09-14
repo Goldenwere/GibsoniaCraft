@@ -71,6 +71,26 @@ public class BlockRef
 	}};
 	
 	/**
+	 * A list of all valid lumber-axe blocks (must be a log that stacks upward)
+	 */
+	public static ArrayList<Material> ValidLumberAxeBlocks = new ArrayList<Material>()
+	{{
+		add(Material.ACACIA_LOG);
+		add(Material.BIRCH_LOG);
+		add(Material.DARK_OAK_LOG);
+		add(Material.JUNGLE_LOG);
+		add(Material.OAK_LOG);
+		add(Material.SPRUCE_LOG);
+		
+		add(Material.STRIPPED_ACACIA_LOG);
+		add(Material.STRIPPED_BIRCH_LOG);
+		add(Material.STRIPPED_DARK_OAK_LOG);
+		add(Material.STRIPPED_JUNGLE_LOG);
+		add(Material.STRIPPED_OAK_LOG);
+		add(Material.STRIPPED_SPRUCE_LOG);
+	}};
+	
+	/**
 	 * A list of all valid hammers (pickaxes)
 	 */
 	public static ArrayList<Material> ValidHammers = new ArrayList<Material>()
@@ -92,5 +112,17 @@ public class BlockRef
 		add(Material.IRON_SHOVEL);
 		add(Material.GOLDEN_SHOVEL);
 		add(Material.DIAMOND_SHOVEL);
+	}};
+	
+	/**
+	 * A list of all valid lumber-axes (axes)
+	 */
+	public static ArrayList<Material> ValidLumberAxes = new ArrayList<Material>()
+	{{
+		add(Material.WOODEN_AXE);
+		add(Material.STONE_AXE);
+		add(Material.IRON_AXE);
+		add(Material.GOLDEN_AXE);
+		add(Material.DIAMOND_AXE);
 	}};
 }

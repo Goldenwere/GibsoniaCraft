@@ -33,6 +33,10 @@ public class BlockListener implements Listener
 		gcPlugin.getServer().getPluginManager().registerEvents(this, gcPlugin);
 	}
 	
+	/**
+	 * Handle the breaking of blocks via the hammer/excavator
+	 * @param bbEvent The event that triggered this method
+	 */
 	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
 	public void Break(BlockBreakEvent bbEvent)
 	{
@@ -60,13 +64,13 @@ public class BlockListener implements Listener
         PlayerInteractListener pListener = gcPlugin.GetPlayerInteractListener();
         BlockFace blockFace = pListener.GetFaceByName(pName);
         
-        // getDurability deprecated, must now go through meta information
+        // Grab durability information
         ItemMeta meta = item.getItemMeta();
         Damageable dMeta = (Damageable)meta;
         int currDur = dMeta.getDamage();
         int maxDur = item.getType().getMaxDurability();
         
-        // Used in determining if an extra block was broken
+        // Used in determining if an extra block was broken (for durability)
         boolean success = false;
         
         // Iterates through to break surrounding blocks 
@@ -92,6 +96,72 @@ public class BlockListener implements Listener
                 }
         		success = true;
         		
+        		b.breakNaturally();
+        	}
+        }
+        
+        // Do extra damage to durability if extra blocks were broken
+        if (success && !item.getEnchantments().containsKey(Enchantment.DURABILITY))
+        {
+        	int addToDamage = 2;
+        	if (itemType == Material.DIAMOND_PICKAXE && itemType == Material.DIAMOND_SHOVEL) 
+        	{
+        		addToDamage = 1;
+        	}
+        	dMeta.setDamage(currDur + addToDamage);
+        	item.setItemMeta(meta);
+        }
+	}
+	
+	/**
+	 * Handle the breaking of blocks via the lumber-axe
+	 * @param bbEvent The event that triggered this method
+	 */
+	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+	public void Chop(BlockBreakEvent bbEvent) 
+	{
+		// Grab current tool information
+		Player player = bbEvent.getPlayer();
+		ItemStack item = player.getInventory().getItemInMainHand();
+		Material itemType = item.getType();
+		
+		// Only do extra block-breaking if the player is not sneaking (method of disabling) or if the player doesn't have the appropriate tools
+		if (player != null && (player instanceof Player))
+		{
+			if (player.isSneaking())
+			{
+				return;
+			}
+	        if (!ToolUtil.IsLumberAxe(item))
+	        {
+	        	return;
+	        }
+		}
+		
+		// Get block information via the player listener
+		Block block = bbEvent.getBlock();
+		
+        // Grab durability information
+        ItemMeta meta = item.getItemMeta();
+        Damageable dMeta = (Damageable)meta;
+        int currDur = dMeta.getDamage();
+        int maxDur = item.getType().getMaxDurability();
+        
+        // Used in determining if an extra block was broken (for durability)
+        boolean success = false;
+        
+        for (Block b : ToolUtil.GetUpwardLogs(block))
+        {
+        	// Determine the block type and position
+        	Material blockMat = b.getType();
+        	Location blockLoc = b.getLocation();
+        	
+        	// Determine whether an appropriate tool is being used
+        	boolean isAxe = ToolUtil.IsLumberAxeable(item, blockMat);
+        	
+        	if (isAxe)
+        	{
+        		success = true;
         		b.breakNaturally();
         	}
         }

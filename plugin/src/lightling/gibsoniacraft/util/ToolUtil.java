@@ -3,6 +3,7 @@ package lightling.gibsoniacraft.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -37,8 +38,18 @@ public class ToolUtil
 	}
 	
 	/**
-	 * Determines whether an item is a valid hammer
+	 * Determines whether a block is axe-able
 	 * @param mat The material being checked
+	 * @return Whether the block is axe-able
+	 */
+	public static boolean IsAxeable(Material mat)
+	{
+		return BlockRef.ValidLumberAxeBlocks.contains(mat);
+	}
+	
+	/**
+	 * Determines whether an item is a valid hammer
+	 * @param item The item being checked
 	 * @return Whether the item is a valid hammer
 	 */
 	public static boolean IsHammer(ItemStack item) 
@@ -53,7 +64,7 @@ public class ToolUtil
 	
 	/**
 	 * Determines whether an item is a valid excavator
-	 * @param mat The material being checked
+	 * @param item The item being checked
 	 * @return Whether the item is a valid excavator
 	 */
 	public static boolean IsExcavator(ItemStack item) 
@@ -62,6 +73,21 @@ public class ToolUtil
 		Material mat = item.getType();
 		if (lore != null && mat != null)
 			return BlockRef.ValidExcavators.contains(mat) && lore.contains("Based off of item from PowerMining/Tinkers' Construct");
+		else
+			return false;
+	}
+	
+	/**
+	 * Determines whether an item is a valid lumber-axe
+	 * @param item The item being checked
+	 * @return Whether the item is a valid lumber-axe
+	 */
+	public static boolean IsLumberAxe(ItemStack item)
+	{
+		List<String> lore = item.getLore();
+		Material mat = item.getType();
+		if (lore != null && mat != null)
+			return BlockRef.ValidLumberAxes.contains(mat) && lore.contains("Based off of item from Tinkers' Construct");
 		else
 			return false;
 	}
@@ -86,6 +112,17 @@ public class ToolUtil
 	public static boolean IsExcavatable(ItemStack exc, Material block) 
 	{
 		return IsDiggable(block) && IsExcavator(exc);
+	}
+	
+	/**
+	 * Determines whether a valid lumber-axe execution can take place
+	 * @param axe The item that should be a lumber-axe
+	 * @param block The block that should be axe-able
+	 * @return Valid or invalid action
+	 */
+	public static boolean IsLumberAxeable(ItemStack axe, Material block)
+	{
+		return IsAxeable(block) && IsLumberAxe(axe);
 	}
 	
 	/**
@@ -153,6 +190,66 @@ public class ToolUtil
         blocks.removeAll(Collections.singleton((Object)null));
         
         return blocks;
+	}
+	
+	public static ArrayList<Block> GetUpwardLogs(Block target)
+	{
+		// Create the list to work with
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		
+		// Reference the world-space
+		World world = target.getWorld();
+		
+		// Determine the anchor XYZ coordinates
+		int x = target.getX();
+		int y = target.getY();
+		int z = target.getZ();
+		
+		// Create control for loop
+		boolean moreBlocks = true;
+		
+		// Grab all logs in a tree
+		do 
+		{
+			// Variable that ends loop if remains 0
+			int blocksAbove = 0;
+			
+			// Grab the surrounding blocks that may be wood
+			for (int i = -2; i <= 2; i++)
+			{
+				for (int j = -2; j <= 2; j++)
+				{
+					// Add all the surrounding logs to the list
+					Block temp = world.getBlockAt(x + i, y, z + j);
+					if (BlockRef.ValidLumberAxeBlocks.contains(temp.getType()))
+					{
+						blocks.add(temp);
+					}
+					
+					// Determine if there are still blocks left
+					Block tempAbove = world.getBlockAt(x + i, y + 1, z + j);
+					if (BlockRef.ValidLumberAxeBlocks.contains(temp.getType()))
+					{
+						blocksAbove++;
+					}
+				}
+			}
+			
+			// If there are still blocks left, go up a level for the for-loop
+			if (blocksAbove != 0)
+			{
+				y++;
+			}
+			
+			// Otherwise, end the loop
+			else
+			{
+				moreBlocks = false;
+			}
+		}
+		while (moreBlocks);
+		
+		return blocks;
 	}
 	
 	// TO-DO: Implement enchantments
