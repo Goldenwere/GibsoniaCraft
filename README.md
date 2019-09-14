@@ -11,7 +11,7 @@ GibsoniaCraft is a plugin created for a dorm Minecraft server. GibsoniaCraft is 
 
 ### Tools
 
-GibsoniaCraft tools based off of BradzCraft which extends [PowerTool](https://bitbucket.org/bloodyshade/powermining/src/default/) which is based off of [Tinkers' Construct](https://github.com/SlimeKnights/TinkersConstruct).
+GibsoniaCraft adds new tools to the server. Excavator/Hammer based off of BradzCraft which extends [PowerTool](https://bitbucket.org/bloodyshade/powermining/src/default/) which is based off of [Tinkers' Construct](https://github.com/SlimeKnights/TinkersConstruct). Lumber Axe concept based off of Tinkers' Construct. 
 
 #### Current Features
 
@@ -21,10 +21,14 @@ GibsoniaCraft tools based off of BradzCraft which extends [PowerTool](https://bi
 - Hammer
   - Mines in a 3x3 square based off of the targetted direction
   - Crafted with four of a corresponding tool material in a circle surrounding a pickaxe
+- Lumber Axe
+  - Chops an entire tree from the bottom-up
+  - Crafted with four of a corresponding tool material in a circle surrounding an axe
   
 #### Current Issues
 
 - Does not account for enchantments
+- Hammer/Excavator fails at x=-1 (and likely z=-1)
 
 ## License
 [MIT](LICENSE)
