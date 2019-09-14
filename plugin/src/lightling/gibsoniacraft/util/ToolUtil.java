@@ -208,46 +208,49 @@ public class ToolUtil
 		// Create control for loop
 		boolean moreBlocks = true;
 		
-		// Grab all logs in a tree
-		do 
+		// Grab all logs in a tree, ensuring target block is a log first
+		if (BlockRef.ValidLumberAxeBlocks.contains(target.getType())) 
 		{
-			// Variable that ends loop if remains 0
-			int blocksAbove = 0;
-			
-			// Grab the surrounding blocks that may be wood
-			for (int i = -2; i <= 2; i++)
+			do 
 			{
-				for (int j = -2; j <= 2; j++)
+				// Variable that ends loop if remains 0
+				int blocksAbove = 0;
+				
+				// Grab the surrounding blocks that may be wood
+				for (int i = -2; i <= 2; i++)
 				{
-					// Add all the surrounding logs to the list
-					Block temp = world.getBlockAt(x + i, y, z + j);
-					if (BlockRef.ValidLumberAxeBlocks.contains(temp.getType()))
+					for (int j = -2; j <= 2; j++)
 					{
-						blocks.add(temp);
-					}
-					
-					// Determine if there are still blocks left
-					Block tempAbove = world.getBlockAt(x + i, y + 1, z + j);
-					if (BlockRef.ValidLumberAxeBlocks.contains(temp.getType()))
-					{
-						blocksAbove++;
+						// Add all the surrounding logs to the list
+						Block temp = world.getBlockAt(x + i, y, z + j);
+						if (BlockRef.ValidLumberAxeBlocks.contains(temp.getType()))
+						{
+							blocks.add(temp);
+						}
+						
+						// Determine if there are still blocks left
+						Block tempAbove = world.getBlockAt(x + i, y + 1, z + j);
+						if (BlockRef.ValidLumberAxeBlocks.contains(temp.getType()))
+						{
+							blocksAbove++;
+						}
 					}
 				}
+				
+				// If there are still blocks left, go up a level for the for-loop
+				if (blocksAbove != 0)
+				{
+					y++;
+				}
+				
+				// Otherwise, end the loop
+				else
+				{
+					moreBlocks = false;
+				}
 			}
-			
-			// If there are still blocks left, go up a level for the for-loop
-			if (blocksAbove != 0)
-			{
-				y++;
-			}
-			
-			// Otherwise, end the loop
-			else
-			{
-				moreBlocks = false;
-			}
+			while (moreBlocks);
 		}
-		while (moreBlocks);
 		
 		return blocks;
 	}

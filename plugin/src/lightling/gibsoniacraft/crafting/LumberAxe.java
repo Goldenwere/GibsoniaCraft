@@ -18,7 +18,7 @@ import org.bukkit.plugin.Plugin;					// Involved in setting up namespaced-key
 import org.bukkit.Server;							// For registering recipes on the server
 
 /**
- * An LumberAxe is a shovel-based item that digs in a 3x3 radius as opposed to a singular block
+ * An LumberAxe is a AXE-based item that digs in a 3x3 radius as opposed to a singular block
  * @author Lightling
  */
 public class LumberAxe 
@@ -62,11 +62,11 @@ public class LumberAxe
 	private void SetupItems(final JavaPlugin plugin) 
 	{
 		// Define the LumberAxe items
-		woodLumberAxe = new ItemStack(Material.WOODEN_SHOVEL);
-		stoneLumberAxe = new ItemStack(Material.STONE_SHOVEL);
-		ironLumberAxe = new ItemStack(Material.IRON_SHOVEL);
-		goldLumberAxe = new ItemStack(Material.GOLDEN_SHOVEL);
-		diamondLumberAxe = new ItemStack(Material.DIAMOND_SHOVEL);
+		woodLumberAxe = new ItemStack(Material.WOODEN_AXE);
+		stoneLumberAxe = new ItemStack(Material.STONE_AXE);
+		ironLumberAxe = new ItemStack(Material.IRON_AXE);
+		goldLumberAxe = new ItemStack(Material.GOLDEN_AXE);
+		diamondLumberAxe = new ItemStack(Material.DIAMOND_AXE);
 		
 		// Define the LumberAxe namespaced keys
 		woodLumAxeKey = new NamespacedKey((Plugin)plugin, "w_LumberAxe");
@@ -147,15 +147,15 @@ public class LumberAxe
 		
 		// Define recipes for the LumberAxes
 		woodLumAxeRecipe.setIngredient('x', woodChoice);
-		woodLumAxeRecipe.setIngredient('i', Material.WOODEN_SHOVEL);
+		woodLumAxeRecipe.setIngredient('i', Material.WOODEN_AXE);
 		stoneLumAxeRecipe.setIngredient('x', Material.COBBLESTONE);
-		stoneLumAxeRecipe.setIngredient('i', Material.STONE_SHOVEL);
+		stoneLumAxeRecipe.setIngredient('i', Material.STONE_AXE);
 		ironLumAxeRecipe.setIngredient('x', Material.IRON_INGOT);
-		ironLumAxeRecipe.setIngredient('i', Material.IRON_SHOVEL);
+		ironLumAxeRecipe.setIngredient('i', Material.IRON_AXE);
 		goldLumAxeRecipe.setIngredient('x', Material.GOLD_INGOT);
-		goldLumAxeRecipe.setIngredient('i', Material.GOLDEN_SHOVEL);
+		goldLumAxeRecipe.setIngredient('i', Material.GOLDEN_AXE);
 		diamondLumAxeRecipe.setIngredient('x', Material.DIAMOND);
-		diamondLumAxeRecipe.setIngredient('i', Material.DIAMOND_SHOVEL);
+		diamondLumAxeRecipe.setIngredient('i', Material.DIAMOND_AXE);
 		
 		// Register recipes on the server
 		Server server = plugin.getServer();
