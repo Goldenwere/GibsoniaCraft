@@ -29,6 +29,7 @@ GibsoniaCraft adds new tools to the server. Excavator/Hammer based off of BradzC
 
 - Does not account for enchantments
 - Hammer/Excavator fails at x=-1 (and likely z=-1)
+- Due to the current check for hammer/excavator block adding (originally based off of PowerTool's method), durablity on hammers/excavators will always have extra durability reduction even if only one block was added (will eventually change to only add blocks to list if they are the right type, like with lumber-axe)
 
 ## License
 [MIT](LICENSE)

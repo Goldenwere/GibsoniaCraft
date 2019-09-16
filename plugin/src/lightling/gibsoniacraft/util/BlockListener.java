@@ -5,6 +5,9 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+
 import org.bukkit.Location;
 
 // Needed for handling events
@@ -63,6 +66,7 @@ public class BlockListener implements Listener
 		String pName = player.getName();
         PlayerInteractListener pListener = gcPlugin.GetPlayerInteractListener();
         BlockFace blockFace = pListener.GetFaceByName(pName);
+        ArrayList<Block> blocks = ToolUtil.GetSurroundingBlocks(blockFace, block);
         
         // Grab durability information
         ItemMeta meta = item.getItemMeta();
@@ -72,9 +76,13 @@ public class BlockListener implements Listener
         
         // Used in determining if an extra block was broken (for durability)
         boolean success = false;
+        if (blocks.size() > 1)
+        {
+        	success = true;
+        }
         
         // Iterates through to break surrounding blocks 
-        for (Block b : ToolUtil.GetSurroundingBlocks(blockFace, block))
+        for (Block b : blocks)
         {
         	// Determine the block type and position
         	Material blockMat = b.getType();
@@ -94,23 +102,30 @@ public class BlockListener implements Listener
 					final ItemStack snow = new ItemStack(Material.SNOWBALL, 1 + b.getData());
                     b.getWorld().dropItemNaturally(blockLoc, snow);
                 }
-        		success = true;
         		
         		b.breakNaturally();
         	}
         }
         
+        
+        // Used for determining durability loss
+        int addToDamage = 0;
+        
         // Do extra damage to durability if extra blocks were broken
         if (success && !item.getEnchantments().containsKey(Enchantment.DURABILITY))
         {
-        	int addToDamage = 2;
-        	if (itemType == Material.DIAMOND_PICKAXE && itemType == Material.DIAMOND_SHOVEL) 
+        	addToDamage = 2;
+        	
+        	// Diamond tools take less damage
+        	if (itemType == Material.DIAMOND_PICKAXE || itemType == Material.DIAMOND_SHOVEL)
         	{
         		addToDamage = 1;
         	}
-        	dMeta.setDamage(currDur + addToDamage);
-        	item.setItemMeta(meta);
         }
+        
+        // Update durability
+    	dMeta.setDamage(currDur + addToDamage);
+    	item.setItemMeta(meta);
 	}
 	
 	/**
@@ -140,6 +155,7 @@ public class BlockListener implements Listener
 		
 		// Get block information via the player listener
 		Block block = bbEvent.getBlock();
+		ArrayList<Block> blocks = ToolUtil.GetUpwardLogs(block);
 		
         // Grab durability information
         ItemMeta meta = item.getItemMeta();
@@ -149,6 +165,10 @@ public class BlockListener implements Listener
         
         // Used in determining if an extra block was broken (for durability)
         boolean success = false;
+        if (blocks.size() > 1)
+        {
+        	success = true;
+        }
         
         for (Block b : ToolUtil.GetUpwardLogs(block))
         {
@@ -161,21 +181,27 @@ public class BlockListener implements Listener
         	
         	if (isAxe)
         	{
-        		success = true;
         		b.breakNaturally();
         	}
         }
         
+        // Used for determining durability loss
+        int addToDamage = 0;
+        
         // Do extra damage to durability if extra blocks were broken
         if (success && !item.getEnchantments().containsKey(Enchantment.DURABILITY))
         {
-        	int addToDamage = 2;
-        	if (itemType == Material.DIAMOND_PICKAXE && itemType == Material.DIAMOND_SHOVEL) 
+        	addToDamage = 2;
+        	
+        	// Diamond tools take less damage
+        	if (itemType == Material.DIAMOND_PICKAXE || itemType == Material.DIAMOND_SHOVEL)
         	{
         		addToDamage = 1;
         	}
-        	dMeta.setDamage(currDur + addToDamage);
-        	item.setItemMeta(meta);
         }
+        
+        // Update durability
+    	dMeta.setDamage(currDur + addToDamage);
+    	item.setItemMeta(meta);
 	}
 }
