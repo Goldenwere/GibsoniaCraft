@@ -149,38 +149,47 @@ public class ToolUtil
         {
         	case UP:
         	case DOWN: {
-        		blocks.add(world.getBlockAt(x + 1, y, z));
-        		blocks.add(world.getBlockAt(x - 1, y, z));
-        		blocks.add(world.getBlockAt(x, y, z + 1));
-        		blocks.add(world.getBlockAt(x, y, z - 1));
-        		blocks.add(world.getBlockAt(x + 1, y, z + 1));
-        		blocks.add(world.getBlockAt(x - 1, y, z + 1));
-        		blocks.add(world.getBlockAt(x + 1, y, z - 1));
-        		blocks.add(world.getBlockAt(x - 1, y, z - 1));
+        		for (int worldX = -1; worldX <= 1; worldX++)
+        		{
+        			for (int worldZ = -1; worldZ <= 1; worldZ++)
+        			{
+        				Block b = world.getBlockAt(x + worldX, y, z + worldZ);
+        				if (BlockRef.ValidExcavatorBlocks.contains(b.getType()) || BlockRef.ValidHammerBlocks.contains(b.getType()))
+        				{
+        					blocks.add(b);
+        				}
+        			}
+        		}
         		break;
 	        }
 	        case EAST:
 	        case WEST: {
-	            blocks.add(world.getBlockAt(x, y, z + 1));
-	            blocks.add(world.getBlockAt(x, y, z - 1));
-	            blocks.add(world.getBlockAt(x, y + 1, z));
-	            blocks.add(world.getBlockAt(x, y - 1, z));
-	            blocks.add(world.getBlockAt(x, y + 1, z + 1));
-	            blocks.add(world.getBlockAt(x, y - 1, z + 1));
-	            blocks.add(world.getBlockAt(x, y + 1, z - 1));
-	            blocks.add(world.getBlockAt(x, y - 1, z - 1));
+        		for (int worldY = -1; worldY <= 1; worldY++)
+        		{
+        			for (int worldZ = -1; worldZ <= 1; worldZ++)
+        			{
+        				Block b = world.getBlockAt(x, y + worldY, z + worldZ);
+        				if (BlockRef.ValidExcavatorBlocks.contains(b.getType()) || BlockRef.ValidHammerBlocks.contains(b.getType()))
+        				{
+        					blocks.add(b);
+        				}
+        			}
+        		}
 	            break;
 	        }
 	        case NORTH:
 	        case SOUTH: {
-	            blocks.add(world.getBlockAt(x + 1, y, z));
-	            blocks.add(world.getBlockAt(x - 1, y, z));
-	            blocks.add(world.getBlockAt(x, y + 1, z));
-	            blocks.add(world.getBlockAt(x, y - 1, z));
-	            blocks.add(world.getBlockAt(x + 1, y + 1, z));
-	            blocks.add(world.getBlockAt(x - 1, y + 1, z));
-	            blocks.add(world.getBlockAt(x + 1, y - 1, z));
-	            blocks.add(world.getBlockAt(x - 1, y - 1, z));
+        		for (int worldX = -1; worldX <= 1; worldX++)
+        		{
+        			for (int worldY = -1; worldY <= 1; worldY++)
+        			{
+        				Block b = world.getBlockAt(x + worldX, y + worldY, z);
+        				if (BlockRef.ValidExcavatorBlocks.contains(b.getType()) || BlockRef.ValidHammerBlocks.contains(b.getType()))
+        				{
+        					blocks.add(b);
+        				}
+        			}
+        		}
 	            break;
 	        }
 	        default:
