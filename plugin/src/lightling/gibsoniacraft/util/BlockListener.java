@@ -109,7 +109,7 @@ public class BlockListener implements Listener
         
         
         // Used for determining durability loss
-        int addToDamage = 0;
+        int addToDamage = 1;
         
         // Do extra damage to durability if extra blocks were broken
         if (success && !item.getEnchantments().containsKey(Enchantment.DURABILITY))
@@ -186,7 +186,7 @@ public class BlockListener implements Listener
         }
         
         // Used for determining durability loss
-        int addToDamage = 0;
+        int addToDamage = 1;
         
         // Do extra damage to durability if extra blocks were broken
         if (success && !item.getEnchantments().containsKey(Enchantment.DURABILITY))
@@ -194,7 +194,7 @@ public class BlockListener implements Listener
         	addToDamage = 2;
         	
         	// Diamond tools take less damage
-        	if (itemType == Material.DIAMOND_PICKAXE || itemType == Material.DIAMOND_SHOVEL)
+        	if (itemType == Material.DIAMOND_AXE)
         	{
         		addToDamage = 1;
         	}
