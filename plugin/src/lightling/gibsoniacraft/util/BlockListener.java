@@ -123,6 +123,11 @@ public class BlockListener implements Listener
         	}
         }
         
+        else if (item.getEnchantments().containsKey(Enchantment.DURABILITY))
+        {
+        	addToDamage = 0;
+        }
+        
         // Update durability
     	dMeta.setDamage(currDur + addToDamage);
     	item.setItemMeta(meta);
@@ -198,6 +203,11 @@ public class BlockListener implements Listener
         	{
         		addToDamage = 1;
         	}
+        }
+        
+        else if (item.getEnchantments().containsKey(Enchantment.DURABILITY))
+        {
+        	addToDamage = 0;
         }
         
         // Update durability
