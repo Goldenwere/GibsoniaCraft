@@ -125,7 +125,13 @@ public class BlockListener implements Listener
         
         else if (item.getEnchantments().containsKey(Enchantment.DURABILITY))
         {
-        	addToDamage = 0;
+        	double level = item.getEnchantmentLevel(Enchantment.DURABILITY);
+        	double chance = 100 / (level + 1);
+        	double rng = (Math.random() * 100) + 1;
+        	if (rng >= chance) 
+        	{
+        		addToDamage = 0;
+        	}
         }
         
         // Update durability
@@ -207,7 +213,13 @@ public class BlockListener implements Listener
         
         else if (item.getEnchantments().containsKey(Enchantment.DURABILITY))
         {
-        	addToDamage = 0;
+        	double level = item.getEnchantmentLevel(Enchantment.DURABILITY);
+        	double chance = 100 / (level + 1);
+        	double rng = (Math.random() * 100) + 1;
+        	if (rng >= chance) 
+        	{
+        		addToDamage = 0;
+        	}
         }
         
         // Update durability
