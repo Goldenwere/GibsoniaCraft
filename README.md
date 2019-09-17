@@ -27,8 +27,7 @@ GibsoniaCraft adds new tools to the server. Excavator/Hammer based off of BradzC
   
 #### Current Issues
 
-- Does not account for enchantments
-- Hammer/Excavator fails at x=-1 (and likely z=-1)
+- [Tools](#Tools) does not account for enchantments (other than unbreaking)
 
 ## License
 [MIT](LICENSE)
