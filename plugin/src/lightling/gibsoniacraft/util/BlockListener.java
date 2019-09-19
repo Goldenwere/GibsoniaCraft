@@ -90,10 +90,21 @@ public class BlockListener implements Listener
         	Material blockMat = b.getType();
             
             // Handle Fortune enchantment
-            if (enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && ham && BlockRef.ValidHammerFortune.contains(blockMat)
-            	|| enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && exc && BlockRef.ValidExcavatorFortune.contains(blockMat))
+            if (enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && ham && BlockRef.ValidHammerFortune.containsKey(blockMat)
+            	|| enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && exc && BlockRef.ValidExcavatorFortune.containsKey(blockMat))
             {
             	double level = tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
+            	Material drop;
+            	
+            	// Determine drop
+            	if (ham)
+            	{
+            		drop = BlockRef.ValidHammerFortune.get(blockMat);
+            	}
+            	else 
+            	{
+            		drop = BlockRef.ValidExcavatorFortune.get(blockMat);
+            	}
             	
             	// Wiki: "Fortune I gives a 33% chance to multiply drops by 2"
             	if (level == 1)
@@ -101,7 +112,7 @@ public class BlockListener implements Listener
             		double rng = (Math.random() * 100) + 1;
             		if (rng >= 0 && rng < 33)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(drop));
             			b.setType(Material.AIR);
             		}
             		
@@ -117,14 +128,13 @@ public class BlockListener implements Listener
             		double rng = (Math.random() * 100) + 1;
             		if (rng >= 0 && rng < 25)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(drop, 1));
             			b.setType(Material.AIR);
             		}
             		
             		else if (rng >= 25 && rng < 50)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
-            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(drop, 2));
             			b.setType(Material.AIR);
             		}
             		
@@ -140,22 +150,19 @@ public class BlockListener implements Listener
             		double rng = (Math.random() * 100) + 1;
             		if (rng >= 0 && rng < 20)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(drop, 1));
             			b.setType(Material.AIR);
             		}
             		
             		else if (rng >= 20 && rng < 40)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
-            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(drop, 2));
             			b.setType(Material.AIR);
             		}
             		
             		else if (rng >= 40 && rng < 60)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
-            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
-            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(drop, 3));
             			b.setType(Material.AIR);
             		}
             		
@@ -166,8 +173,8 @@ public class BlockListener implements Listener
             	}
             }
             
-            else if (enchantments.containsKey(Enchantment.SILK_TOUCH) && ham && BlockRef.ValidHammerFortune.contains(blockMat)
-            	|| enchantments.containsKey(Enchantment.SILK_TOUCH) && exc && BlockRef.ValidExcavatorFortune.contains(blockMat))
+            else if (enchantments.containsKey(Enchantment.SILK_TOUCH) && ham && BlockRef.ValidHammerFortune.containsKey(blockMat)
+            	|| enchantments.containsKey(Enchantment.SILK_TOUCH) && exc && BlockRef.ValidExcavatorFortune.containsKey(blockMat))
             {
             	b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
             	b.setType(Material.AIR);

@@ -1,8 +1,10 @@
 package lightling.gibsoniacraft.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Contains constant blocks and items of a certain type
@@ -130,24 +132,24 @@ public class BlockRef
 	}};
 	
 	/**
-	 * A list of all valid blocks that fortune affects on hammers
+	 * Stores all valid blocks that fortune affects on hammers and matches them with their corresponding items
 	 */
-	public static ArrayList<Material> ValidHammerFortune = new ArrayList<Material>()
+	public static HashMap<Material, Material> ValidHammerFortune = new HashMap<Material, Material>()
 	{{
-		add(Material.COAL_ORE);
-		add(Material.DIAMOND_ORE);
-		add(Material.EMERALD_ORE);
-		add(Material.NETHER_QUARTZ_ORE);
-		add(Material.LAPIS_ORE);
-		add(Material.GLOWSTONE);
+		put(Material.COAL_ORE, Material.COAL);
+		put(Material.DIAMOND_ORE, Material.DIAMOND);
+		put(Material.EMERALD_ORE, Material.EMERALD);
+		put(Material.NETHER_QUARTZ_ORE, Material.QUARTZ);
+		put(Material.LAPIS_ORE, Material.LAPIS_LAZULI);
+		put(Material.GLOWSTONE, Material.GLOWSTONE_DUST);
 	}};
 	
 	/**
-	 * A list of all valid blocks that fortune affects on excavators
+	 * Stores all valid blocks that fortune affects on excavators and matches them with their corresponding items
 	 */
-	public static ArrayList<Material> ValidExcavatorFortune = new ArrayList<Material>()
+	public static HashMap<Material, Material> ValidExcavatorFortune = new HashMap<Material, Material>()
 	{{
-		add(Material.GRAVEL);
+		put(Material.GRAVEL, Material.FLINT);
 	}};
 	
 	/**
