@@ -59,6 +59,7 @@ public class BlockRef
 		add(Material.PODZOL);
 		add(Material.GRASS_BLOCK);
 		add(Material.GRASS_PATH);
+		add(Material.MYCELIUM);
 		
 		add(Material.SAND);
 		add(Material.RED_SAND);
@@ -145,5 +146,46 @@ public class BlockRef
 	public static ArrayList<Material> ValidExcavatorFortune = new ArrayList<Material>()
 	{{
 		add(Material.GRAVEL);
+	}};
+	
+	/**
+	 * A list of all valid blocks that silk touch affects on hammers
+	 */
+	public static ArrayList<Material> ValidHammerSilkTouch = new ArrayList<Material>()
+	{{
+		add(Material.COAL_ORE);
+		add(Material.IRON_ORE);
+		add(Material.GOLD_ORE);
+		add(Material.DIAMOND_ORE);
+		add(Material.EMERALD_ORE);
+		add(Material.LAPIS_ORE);
+		add(Material.REDSTONE_ORE);
+		
+		add(Material.COBBLESTONE);
+		add(Material.STONE);
+		add(Material.SANDSTONE);
+		add(Material.RED_SANDSTONE);
+		add(Material.ICE);
+		add(Material.BLUE_ICE);
+		add(Material.PACKED_ICE);
+		
+		add(Material.NETHER_QUARTZ_ORE);
+	}};
+	
+	/**
+	 * A list of all valid blocks that silk touch affects on excavators
+	 */
+	public static ArrayList<Material> ValidExcavatorSilkTouch = new ArrayList<Material>()
+	{{
+		add(Material.PODZOL);
+		add(Material.GRASS_BLOCK);
+		add(Material.MYCELIUM);
+		//add(Material.GRASS_PATH); (bedrock edition only)
+		
+		add(Material.GRAVEL);
+		add(Material.CLAY);
+		
+		add(Material.SNOW);
+		add(Material.SNOW_BLOCK);
 	}};
 }

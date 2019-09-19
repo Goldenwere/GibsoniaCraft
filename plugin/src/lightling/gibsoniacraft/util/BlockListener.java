@@ -91,7 +91,7 @@ public class BlockListener implements Listener
             
             // Handle Fortune enchantment
             if (enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && ham && BlockRef.ValidHammerFortune.contains(blockMat)
-            		|| enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && exc && BlockRef.ValidExcavatorFortune.contains(blockMat))
+            	|| enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && exc && BlockRef.ValidExcavatorFortune.contains(blockMat))
             {
             	double level = item.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
             	
@@ -149,6 +149,13 @@ public class BlockListener implements Listener
             		
             		b.breakNaturally();
             	}
+            }
+            
+            else if (enchantments.containsKey(Enchantment.SILK_TOUCH) && ham && BlockRef.ValidHammerFortune.contains(blockMat)
+            	|| enchantments.containsKey(Enchantment.SILK_TOUCH) && exc && BlockRef.ValidExcavatorFortune.contains(blockMat))
+            {
+            	b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            	b.setType(Material.AIR);
             }
             
         	// Handle snow
