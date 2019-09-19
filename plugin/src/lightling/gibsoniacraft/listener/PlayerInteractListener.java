@@ -1,4 +1,4 @@
-package lightling.gibsoniacraft.util;
+package lightling.gibsoniacraft.listener;
 
 import java.util.HashMap;								// Needed to store block-face information
 

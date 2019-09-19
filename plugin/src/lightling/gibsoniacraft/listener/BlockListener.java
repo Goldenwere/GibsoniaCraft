@@ -1,4 +1,4 @@
-package lightling.gibsoniacraft.util;
+package lightling.gibsoniacraft.listener;
 
 // Needed for block information
 import org.bukkit.Material;
@@ -18,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import lightling.gibsoniacraft.GibsoniaCraft;
 import lightling.gibsoniacraft.lib.BlockRef;
+import lightling.gibsoniacraft.util.ToolUtil;
 
 // Needed for GibsoniaCraft tools
 import org.bukkit.inventory.ItemStack;

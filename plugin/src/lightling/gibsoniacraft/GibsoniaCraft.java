@@ -7,8 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import lightling.gibsoniacraft.crafting.Excavator;
 import lightling.gibsoniacraft.crafting.Hammer;
 import lightling.gibsoniacraft.crafting.LumberAxe;
-import lightling.gibsoniacraft.util.BlockListener;
-import lightling.gibsoniacraft.util.PlayerInteractListener;
+import lightling.gibsoniacraft.listener.BlockListener;
+import lightling.gibsoniacraft.listener.PlayerInteractListener;
 
 @SuppressWarnings("unused")
 public final class GibsoniaCraft extends JavaPlugin {
