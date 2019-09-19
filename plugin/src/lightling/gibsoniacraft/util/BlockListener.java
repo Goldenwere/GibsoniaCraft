@@ -46,8 +46,8 @@ public class BlockListener implements Listener
 	{
 		// Grab current tool information
 		Player player = bbEvent.getPlayer();
-		ItemStack item = player.getInventory().getItemInMainHand();
-		Material itemType = item.getType();
+		ItemStack tool = player.getInventory().getItemInMainHand();
+		Material toolType = tool.getType();
 		
 		// Grab the current block information
 		Block block = bbEvent.getBlock();
@@ -55,7 +55,7 @@ public class BlockListener implements Listener
 		// Only do extra block-breaking if the player is not sneaking (method of disabling) or if the player doesn't have the appropriate tools
 		if (player != null && (player instanceof Player))
 		{
-			if (player.isSneaking() || !ToolUtil.IsExcavatable(item, block.getType()) && !ToolUtil.IsHammerable(item, block.getType()))
+			if (player.isSneaking() || !ToolUtil.IsExcavatable(tool, block.getType()) && !ToolUtil.IsHammerable(tool, block.getType()))
 			{
 				return;
 			}
@@ -65,14 +65,14 @@ public class BlockListener implements Listener
 		String pName = player.getName();
         PlayerInteractListener pListener = gcPlugin.GetPlayerInteractListener();
         BlockFace blockFace = pListener.GetFaceByName(pName);
-        ArrayList<Block> blocks = ToolUtil.GetSurroundingBlocks(blockFace, block, item);
+        ArrayList<Block> blocks = ToolUtil.GetSurroundingBlocks(blockFace, block, tool);
         
         // Grab durability and enchantment information
-        ItemMeta meta = item.getItemMeta();
+        ItemMeta meta = tool.getItemMeta();
         Damageable dMeta = (Damageable)meta;
         int currDur = dMeta.getDamage();
-        int maxDur = item.getType().getMaxDurability();
-        Map<Enchantment, Integer> enchantments = item.getEnchantments();
+        int maxDur = tool.getType().getMaxDurability();
+        Map<Enchantment, Integer> enchantments = tool.getEnchantments();
         
         // Used in determining if an extra block was broken (for durability)
         boolean success = false;
@@ -85,15 +85,15 @@ public class BlockListener implements Listener
         for (Block b : blocks)
         {
         	Location blockLoc = b.getLocation();
-        	boolean exc = ToolUtil.IsExcavator(item);
-        	boolean ham = ToolUtil.IsHammer(item);
+        	boolean exc = ToolUtil.IsExcavator(tool);
+        	boolean ham = ToolUtil.IsHammer(tool);
         	Material blockMat = b.getType();
             
             // Handle Fortune enchantment
             if (enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && ham && BlockRef.ValidHammerFortune.contains(blockMat)
             	|| enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && exc && BlockRef.ValidExcavatorFortune.contains(blockMat))
             {
-            	double level = item.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
+            	double level = tool.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
             	
             	// Wiki: "Fortune I gives a 33% chance to multiply drops by 2"
             	if (level == 1)
@@ -101,10 +101,14 @@ public class BlockListener implements Listener
             		double rng = (Math.random() * 100) + 1;
             		if (rng >= 0 && rng < 33)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, item);
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.setType(Material.AIR);
             		}
             		
-            		b.breakNaturally();
+            		else
+            		{
+            			b.breakNaturally();
+            		}
             	}
             	
             	// Wiki: "Fortune II gives a chance to multiply drops by 2 or 3 (25% chance each...)"
@@ -113,16 +117,21 @@ public class BlockListener implements Listener
             		double rng = (Math.random() * 100) + 1;
             		if (rng >= 0 && rng < 25)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, item);
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.setType(Material.AIR);
             		}
             		
             		else if (rng >= 25 && rng < 50)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, item);
-            			b.getWorld().dropItemNaturally(blockLoc, item);
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.setType(Material.AIR);
             		}
             		
-            		b.breakNaturally();
+            		else
+            		{
+                		b.breakNaturally();
+            		}
             	}
             	
             	// Wiki: "Fortune III gives a chance to multiply drops by 2, 3, or 4 (20% chance each...)"
@@ -131,23 +140,29 @@ public class BlockListener implements Listener
             		double rng = (Math.random() * 100) + 1;
             		if (rng >= 0 && rng < 20)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, item);
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.setType(Material.AIR);
             		}
             		
             		else if (rng >= 20 && rng < 40)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, item);
-            			b.getWorld().dropItemNaturally(blockLoc, item);
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.setType(Material.AIR);
             		}
             		
             		else if (rng >= 40 && rng < 60)
             		{
-            			b.getWorld().dropItemNaturally(blockLoc, item);
-            			b.getWorld().dropItemNaturally(blockLoc, item);
-            			b.getWorld().dropItemNaturally(blockLoc, item);
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
+            			b.setType(Material.AIR);
             		}
             		
-            		b.breakNaturally();
+            		else 
+            		{
+            			b.breakNaturally();
+            		}
             	}
             }
             
@@ -183,7 +198,7 @@ public class BlockListener implements Listener
         	addToDamage = 2;
         	
         	// Diamond tools take less damage
-        	if (itemType == Material.DIAMOND_PICKAXE || itemType == Material.DIAMOND_SHOVEL)
+        	if (toolType == Material.DIAMOND_PICKAXE || toolType == Material.DIAMOND_SHOVEL)
         	{
         		addToDamage = 1;
         	}
@@ -191,7 +206,7 @@ public class BlockListener implements Listener
         
         else if (enchantments.containsKey(Enchantment.DURABILITY))
         {
-        	double level = item.getEnchantmentLevel(Enchantment.DURABILITY);
+        	double level = tool.getEnchantmentLevel(Enchantment.DURABILITY);
         	double chance = 100 / (level + 1);
         	double rng = (Math.random() * 100) + 1;
         	if (rng >= chance) 
@@ -202,7 +217,7 @@ public class BlockListener implements Listener
         
         // Update durability
     	dMeta.setDamage(currDur + addToDamage);
-    	item.setItemMeta(meta);
+    	tool.setItemMeta(meta);
 	}
 	
 	/**

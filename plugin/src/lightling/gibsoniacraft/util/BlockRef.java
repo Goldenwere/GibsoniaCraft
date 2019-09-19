@@ -47,6 +47,7 @@ public class BlockRef
 		add(Material.NETHERRACK);
 		add(Material.NETHER_QUARTZ_ORE);
 		add(Material.OBSIDIAN);
+		add(Material.GLOWSTONE);
 	}};
 	
 	/**
@@ -138,6 +139,7 @@ public class BlockRef
 		add(Material.EMERALD_ORE);
 		add(Material.NETHER_QUARTZ_ORE);
 		add(Material.LAPIS_ORE);
+		add(Material.GLOWSTONE);
 	}};
 	
 	/**
@@ -170,6 +172,7 @@ public class BlockRef
 		add(Material.PACKED_ICE);
 		
 		add(Material.NETHER_QUARTZ_ORE);
+		add(Material.GLOWSTONE);
 	}};
 	
 	/**
