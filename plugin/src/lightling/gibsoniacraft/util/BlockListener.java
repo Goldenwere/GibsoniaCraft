@@ -48,21 +48,19 @@ public class BlockListener implements Listener
 		ItemStack item = player.getInventory().getItemInMainHand();
 		Material itemType = item.getType();
 		
+		// Grab the current block information
+		Block block = bbEvent.getBlock();
+		
 		// Only do extra block-breaking if the player is not sneaking (method of disabling) or if the player doesn't have the appropriate tools
 		if (player != null && (player instanceof Player))
 		{
-			if (player.isSneaking())
+			if (player.isSneaking() || !ToolUtil.IsExcavatable(item, block.getType()) && !ToolUtil.IsHammerable(item, block.getType()))
 			{
 				return;
 			}
-	        if (!ToolUtil.IsExcavator(item) && !ToolUtil.IsHammer(item))
-	        {
-	        	return;
-	        }
 		}
 		
 		// Get blockface information via the player listener
-		Block block = bbEvent.getBlock();
 		String pName = player.getName();
         PlayerInteractListener pListener = gcPlugin.GetPlayerInteractListener();
         BlockFace blockFace = pListener.GetFaceByName(pName);
@@ -151,21 +149,20 @@ public class BlockListener implements Listener
 		ItemStack item = player.getInventory().getItemInMainHand();
 		Material itemType = item.getType();
 		
-		// Only do extra block-breaking if the player is not sneaking (method of disabling) or if the player doesn't have the appropriate tools
+		// Get block information via the player listener
+		Block block = bbEvent.getBlock();
+		
+		// Only do extra block-breaking if the player is not sneaking (method of disabling)
+		// Or if the player is breaking the incorrect block/using the incorrect tool
 		if (player != null && (player instanceof Player))
 		{
-			if (player.isSneaking())
+			if (player.isSneaking() || !ToolUtil.IsLumberAxeable(item, block.getType()))
 			{
 				return;
 			}
-	        if (!ToolUtil.IsLumberAxe(item))
-	        {
-	        	return;
-	        }
 		}
 		
-		// Get block information via the player listener
-		Block block = bbEvent.getBlock();
+		// Get all of the relevant blocks that are a part of the tree
 		ArrayList<Block> blocks = ToolUtil.GetUpwardLogs(block);
 		
         // Grab durability information
@@ -178,6 +175,7 @@ public class BlockListener implements Listener
         boolean success = false;
         if (blocks.size() > 1)
         {
+        	System.out.println("Blocks.size() = " + blocks.size());
         	success = true;
         }
         

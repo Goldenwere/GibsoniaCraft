@@ -46,6 +46,7 @@ public class BlockRef
 		add(Material.END_STONE);
 		add(Material.NETHERRACK);
 		add(Material.NETHER_QUARTZ_ORE);
+		add(Material.OBSIDIAN);
 	}};
 	
 	/**
