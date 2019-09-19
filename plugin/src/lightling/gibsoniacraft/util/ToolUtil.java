@@ -267,7 +267,5 @@ public class ToolUtil
 		return blocks;
 	}
 	
-	// TO-DO: Implement enchantments
-	
 	// TO-DO: Implement scythes (3x3 harvest) and tillers (3x3 hoe)
 }

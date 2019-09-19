@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 
 // Collections
@@ -16,6 +17,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+
 import lightling.gibsoniacraft.GibsoniaCraft;
 import lightling.gibsoniacraft.lib.BlockRef;
 import lightling.gibsoniacraft.util.ToolUtil;
@@ -301,5 +304,12 @@ public class BlockListener implements Listener
         // Update durability
     	dMeta.setDamage(currDur + addToDamage);
     	item.setItemMeta(meta);
+	}
+	
+	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+	public void LoaderPlace(BlockPlaceEvent bpEvent)
+	{
+		Chunk chunk = bpEvent.getBlock().getLocation().getChunk();
+		this.gcPlugin.ForceChunkActive(chunk);
 	}
 }
