@@ -1,15 +1,17 @@
-package lightling.gibsoniacraft.util;
+package lightling.gibsoniacraft.lib;
 
+// Collections
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// For referencing block types
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * Contains constant blocks and items of a certain type
  * @author Lightling
  */
+@SuppressWarnings("serial")
 public class BlockRef 
 {
 	/**

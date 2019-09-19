@@ -5,11 +5,11 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.Location;
 
+// Collections
 import java.util.ArrayList;
 import java.util.Map;
-
-import org.bukkit.Location;
 
 // Needed for handling events
 import org.bukkit.event.EventHandler;
@@ -17,6 +17,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import lightling.gibsoniacraft.GibsoniaCraft;
+import lightling.gibsoniacraft.lib.BlockRef;
 
 // Needed for GibsoniaCraft tools
 import org.bukkit.inventory.ItemStack;
@@ -71,7 +72,6 @@ public class BlockListener implements Listener
         ItemMeta meta = tool.getItemMeta();
         Damageable dMeta = (Damageable)meta;
         int currDur = dMeta.getDamage();
-        int maxDur = tool.getType().getMaxDurability();
         Map<Enchantment, Integer> enchantments = tool.getEnchantments();
         
         // Used in determining if an extra block was broken (for durability)
@@ -258,7 +258,6 @@ public class BlockListener implements Listener
         ItemMeta meta = item.getItemMeta();
         Damageable dMeta = (Damageable)meta;
         int currDur = dMeta.getDamage();
-        int maxDur = item.getType().getMaxDurability();
         
         // Used in determining if an extra block was broken (for durability)
         boolean success = false;

@@ -21,6 +21,7 @@ import org.bukkit.Server;							// For registering recipes on the server
  * An Hammer is a pickaxe-based item that digs in a 3x3 radius as opposed to a singular block
  * @author Lightling
  */
+@SuppressWarnings("serial")
 public class Hammer
 {	
 	// The item variants for the Hammers

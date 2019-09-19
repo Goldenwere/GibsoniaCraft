@@ -1,15 +1,17 @@
 package lightling.gibsoniacraft.util;
 
+// Collections
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
 
+// For functionality of various functions
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.World;
+import lightling.gibsoniacraft.lib.BlockRef;
 
 /**
  * Manages calculations regarding added tools
@@ -240,7 +242,7 @@ public class ToolUtil
 						
 						// Determine if there are still blocks left
 						Block tempAbove = world.getBlockAt(x + i, y + 1, z + j);
-						if (BlockRef.ValidLumberAxeBlocks.contains(temp.getType()))
+						if (BlockRef.ValidLumberAxeBlocks.contains(tempAbove.getType()))
 						{
 							blocksAbove++;
 						}
