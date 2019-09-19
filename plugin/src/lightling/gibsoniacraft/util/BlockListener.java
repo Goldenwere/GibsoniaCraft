@@ -175,7 +175,6 @@ public class BlockListener implements Listener
         boolean success = false;
         if (blocks.size() > 1)
         {
-        	System.out.println("Blocks.size() = " + blocks.size());
         	success = true;
         }
         
