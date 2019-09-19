@@ -7,6 +7,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.bukkit.Location;
 
@@ -66,11 +67,12 @@ public class BlockListener implements Listener
         BlockFace blockFace = pListener.GetFaceByName(pName);
         ArrayList<Block> blocks = ToolUtil.GetSurroundingBlocks(blockFace, block, item);
         
-        // Grab durability information
+        // Grab durability and enchantment information
         ItemMeta meta = item.getItemMeta();
         Damageable dMeta = (Damageable)meta;
         int currDur = dMeta.getDamage();
         int maxDur = item.getType().getMaxDurability();
+        Map<Enchantment, Integer> enchantments = item.getEnchantments();
         
         // Used in determining if an extra block was broken (for durability)
         boolean success = false;
@@ -81,16 +83,87 @@ public class BlockListener implements Listener
         
         // Iterates through to break surrounding blocks 
         for (Block b : blocks)
-        {        	
+        {
+        	Location blockLoc = b.getLocation();
+        	boolean exc = ToolUtil.IsExcavator(item);
+        	boolean ham = ToolUtil.IsHammer(item);
+        	Material blockMat = b.getType();
+            
+            // Handle Fortune enchantment
+            if (enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && ham && BlockRef.ValidHammerFortune.contains(blockMat)
+            		|| enchantments.containsKey(Enchantment.LOOT_BONUS_BLOCKS) && exc && BlockRef.ValidExcavatorFortune.contains(blockMat))
+            {
+            	double level = item.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
+            	
+            	// Wiki: "Fortune I gives a 33% chance to multiply drops by 2"
+            	if (level == 1)
+            	{
+            		double rng = (Math.random() * 100) + 1;
+            		if (rng >= 0 && rng < 33)
+            		{
+            			b.getWorld().dropItemNaturally(blockLoc, item);
+            		}
+            		
+            		b.breakNaturally();
+            	}
+            	
+            	// Wiki: "Fortune II gives a chance to multiply drops by 2 or 3 (25% chance each...)"
+            	else if (level == 2)
+            	{
+            		double rng = (Math.random() * 100) + 1;
+            		if (rng >= 0 && rng < 25)
+            		{
+            			b.getWorld().dropItemNaturally(blockLoc, item);
+            		}
+            		
+            		else if (rng >= 25 && rng < 50)
+            		{
+            			b.getWorld().dropItemNaturally(blockLoc, item);
+            			b.getWorld().dropItemNaturally(blockLoc, item);
+            		}
+            		
+            		b.breakNaturally();
+            	}
+            	
+            	// Wiki: "Fortune III gives a chance to multiply drops by 2, 3, or 4 (20% chance each...)"
+            	else 
+            	{
+            		double rng = (Math.random() * 100) + 1;
+            		if (rng >= 0 && rng < 20)
+            		{
+            			b.getWorld().dropItemNaturally(blockLoc, item);
+            		}
+            		
+            		else if (rng >= 20 && rng < 40)
+            		{
+            			b.getWorld().dropItemNaturally(blockLoc, item);
+            			b.getWorld().dropItemNaturally(blockLoc, item);
+            		}
+            		
+            		else if (rng >= 40 && rng < 60)
+            		{
+            			b.getWorld().dropItemNaturally(blockLoc, item);
+            			b.getWorld().dropItemNaturally(blockLoc, item);
+            			b.getWorld().dropItemNaturally(blockLoc, item);
+            		}
+            		
+            		b.breakNaturally();
+            	}
+            }
+            
         	// Handle snow
-            if (b.getType() == Material.SNOW) 
+            else if (blockMat == Material.SNOW && exc) 
             {
                 @SuppressWarnings("deprecation")
                 final ItemStack snow = new ItemStack(Material.SNOWBALL, 1 + b.getData());
-                b.getWorld().dropItemNaturally(b.getLocation(), snow);
+                b.getWorld().dropItemNaturally(blockLoc, snow);
             }
-        		
-        	b.breakNaturally();
+            
+            // In all other cases, break naturally
+            else
+            {
+            	b.breakNaturally();
+            }
         }
         
         
@@ -98,7 +171,7 @@ public class BlockListener implements Listener
         int addToDamage = 1;
         
         // Do extra damage to durability if extra blocks were broken
-        if (success && !item.getEnchantments().containsKey(Enchantment.DURABILITY))
+        if (success && !enchantments.containsKey(Enchantment.DURABILITY))
         {
         	addToDamage = 2;
         	
@@ -109,7 +182,7 @@ public class BlockListener implements Listener
         	}
         }
         
-        else if (item.getEnchantments().containsKey(Enchantment.DURABILITY))
+        else if (enchantments.containsKey(Enchantment.DURABILITY))
         {
         	double level = item.getEnchantmentLevel(Enchantment.DURABILITY);
         	double chance = 100 / (level + 1);

@@ -126,4 +126,24 @@ public class BlockRef
 		add(Material.GOLDEN_AXE);
 		add(Material.DIAMOND_AXE);
 	}};
+	
+	/**
+	 * A list of all valid blocks that fortune affects on hammers
+	 */
+	public static ArrayList<Material> ValidHammerFortune = new ArrayList<Material>()
+	{{
+		add(Material.COAL_ORE);
+		add(Material.DIAMOND_ORE);
+		add(Material.EMERALD_ORE);
+		add(Material.NETHER_QUARTZ_ORE);
+		add(Material.LAPIS_ORE);
+	}};
+	
+	/**
+	 * A list of all valid blocks that fortune affects on excavators
+	 */
+	public static ArrayList<Material> ValidExcavatorFortune = new ArrayList<Material>()
+	{{
+		add(Material.GRAVEL);
+	}};
 }
