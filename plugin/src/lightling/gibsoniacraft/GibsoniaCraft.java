@@ -62,8 +62,20 @@ public final class GibsoniaCraft extends JavaPlugin {
         if (!this.loadedChunks.contains(chunk)) 
         {
             chunk.setForceLoaded(true);
+            this.loadedChunks.add(chunk);
         }
-        
-        this.loadedChunks.add(chunk);
+	}
+	
+	/**
+	 * Removes a chunk from the list of force-loaded chunks
+	 * @param chunk The chunk to remove as force-loaded
+	 */
+	public void ForceChunkInactive(final Chunk chunk)
+	{
+		if (this.loadedChunks.contains(chunk))
+		{
+			chunk.setForceLoaded(false);
+			this.loadedChunks.remove(chunk);
+		}
 	}
 }

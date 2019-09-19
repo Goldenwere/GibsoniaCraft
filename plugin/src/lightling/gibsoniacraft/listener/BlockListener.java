@@ -27,6 +27,7 @@ import lightling.gibsoniacraft.util.ToolUtil;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+
 import org.bukkit.enchantments.Enchantment;
 
 /**
@@ -306,10 +307,31 @@ public class BlockListener implements Listener
     	item.setItemMeta(meta);
 	}
 	
+	/**
+	 * Handle the placing of chunk loaders
+	 * @param bpEvent The event that triggered this method
+	 */
 	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
 	public void LoaderPlace(BlockPlaceEvent bpEvent)
 	{
-		Chunk chunk = bpEvent.getBlock().getLocation().getChunk();
-		this.gcPlugin.ForceChunkActive(chunk);
+		if (bpEvent.getBlock().hasMetadata("Keeps chunks loaded"))
+		{
+			Chunk chunk = bpEvent.getBlock().getLocation().getChunk();
+			this.gcPlugin.ForceChunkActive(chunk);
+		}
+	}
+	
+	/**
+	 * Handle the breaking of chunk loaders
+	 * @param bbEvent The event that triggered this method
+	 */
+	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+	public void LoaderDestroy(BlockBreakEvent bbEvent)
+	{
+		if (bbEvent.getBlock().hasMetadata("Keeps chunks loaded"))
+		{
+			Chunk chunk = bbEvent.getBlock().getLocation().getChunk();
+			this.gcPlugin.ForceChunkInactive(chunk);
+		}
 	}
 }
