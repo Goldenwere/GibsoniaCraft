@@ -173,8 +173,8 @@ public class BlockListener implements Listener
             	}
             }
             
-            else if (enchantments.containsKey(Enchantment.SILK_TOUCH) && ham && BlockRef.ValidHammerFortune.containsKey(blockMat)
-            	|| enchantments.containsKey(Enchantment.SILK_TOUCH) && exc && BlockRef.ValidExcavatorFortune.containsKey(blockMat))
+            else if (enchantments.containsKey(Enchantment.SILK_TOUCH) && ham && BlockRef.ValidHammerSilkTouch.contains(blockMat)
+            	|| enchantments.containsKey(Enchantment.SILK_TOUCH) && exc && BlockRef.ValidExcavatorSilkTouch.contains(blockMat))
             {
             	b.getWorld().dropItemNaturally(blockLoc, new ItemStack(blockMat));
             	b.setType(Material.AIR);
