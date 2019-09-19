@@ -81,28 +81,16 @@ public class BlockListener implements Listener
         
         // Iterates through to break surrounding blocks 
         for (Block b : blocks)
-        {
-        	// Determine the block type and position
-        	Material blockMat = b.getType();
-        	Location blockLoc = b.getLocation();
-        	
-        	// Determine whether an appropriate tool is being used
-        	boolean isExc = ToolUtil.IsExcavatable(item, blockMat);
-        	boolean isHam = ToolUtil.IsHammerable(item, blockMat);
-        	
-        	// If using the correct tools, break surrounding blocks
-        	if (isExc || isHam)
-        	{
-        		// Handle snow
-                if (blockMat == Material.SNOW && isExc) 
-                {
-                    @SuppressWarnings("deprecation")
-					final ItemStack snow = new ItemStack(Material.SNOWBALL, 1 + b.getData());
-                    b.getWorld().dropItemNaturally(blockLoc, snow);
-                }
+        {        	
+        	// Handle snow
+            if (b.getType() == Material.SNOW) 
+            {
+                @SuppressWarnings("deprecation")
+                final ItemStack snow = new ItemStack(Material.SNOWBALL, 1 + b.getData());
+                b.getWorld().dropItemNaturally(b.getLocation(), snow);
+            }
         		
-        		b.breakNaturally();
-        	}
+        	b.breakNaturally();
         }
         
         
@@ -147,7 +135,6 @@ public class BlockListener implements Listener
 		// Grab current tool information
 		Player player = bbEvent.getPlayer();
 		ItemStack item = player.getInventory().getItemInMainHand();
-		Material itemType = item.getType();
 		
 		// Get block information via the player listener
 		Block block = bbEvent.getBlock();
@@ -179,18 +166,8 @@ public class BlockListener implements Listener
         }
         
         for (Block b : ToolUtil.GetUpwardLogs(block))
-        {
-        	// Determine the block type and position
-        	Material blockMat = b.getType();
-        	Location blockLoc = b.getLocation();
-        	
-        	// Determine whether an appropriate tool is being used
-        	boolean isAxe = ToolUtil.IsLumberAxeable(item, blockMat);
-        	
-        	if (isAxe)
-        	{
-        		b.breakNaturally();
-        	}
+        {        	
+        	b.breakNaturally();
         }
         
         // Used for determining durability loss
@@ -202,7 +179,7 @@ public class BlockListener implements Listener
         	addToDamage = 2;
         	
         	// Diamond tools take less damage
-        	if (itemType == Material.DIAMOND_AXE)
+        	if (item.getType() == Material.DIAMOND_AXE)
         	{
         		addToDamage = 1;
         	}
