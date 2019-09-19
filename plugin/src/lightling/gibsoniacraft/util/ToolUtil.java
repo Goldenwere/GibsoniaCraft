@@ -129,9 +129,10 @@ public class ToolUtil
 	 * Grabs the surrounding blocks in the world from the one that was mined/dug, and adds them to a list
 	 * @param blockFace The face that was targeted (changes the direction of the 3x3 grid)
 	 * @param target The block that was targeted
+	 * @param tool The tool that was used
 	 * @return A list containing the surrounding blocks
 	 */
-	public static ArrayList<Block> GetSurroundingBlocks(BlockFace blockFace, Block target)
+	public static ArrayList<Block> GetSurroundingBlocks(BlockFace blockFace, Block target, ItemStack tool)
 	{
 		// Create the list to work with
 		ArrayList<Block> blocks = new ArrayList<Block>();
@@ -154,7 +155,7 @@ public class ToolUtil
         			for (int worldZ = -1; worldZ <= 1; worldZ++)
         			{
         				Block b = world.getBlockAt(x + worldX, y, z + worldZ);
-        				if (BlockRef.ValidExcavatorBlocks.contains(b.getType()) || BlockRef.ValidHammerBlocks.contains(b.getType()))
+        				if (IsHammerable(tool, b.getType()) || IsExcavatable(tool, b.getType()))
         				{
         					blocks.add(b);
         				}
@@ -169,7 +170,7 @@ public class ToolUtil
         			for (int worldZ = -1; worldZ <= 1; worldZ++)
         			{
         				Block b = world.getBlockAt(x, y + worldY, z + worldZ);
-        				if (BlockRef.ValidExcavatorBlocks.contains(b.getType()) || BlockRef.ValidHammerBlocks.contains(b.getType()))
+        				if (IsHammerable(tool, b.getType()) || IsExcavatable(tool, b.getType()))
         				{
         					blocks.add(b);
         				}
@@ -184,7 +185,7 @@ public class ToolUtil
         			for (int worldY = -1; worldY <= 1; worldY++)
         			{
         				Block b = world.getBlockAt(x + worldX, y + worldY, z);
-        				if (BlockRef.ValidExcavatorBlocks.contains(b.getType()) || BlockRef.ValidHammerBlocks.contains(b.getType()))
+        				if (IsHammerable(tool, b.getType()) || IsExcavatable(tool, b.getType()))
         				{
         					blocks.add(b);
         				}

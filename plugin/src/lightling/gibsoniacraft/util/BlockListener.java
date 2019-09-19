@@ -64,7 +64,7 @@ public class BlockListener implements Listener
 		String pName = player.getName();
         PlayerInteractListener pListener = gcPlugin.GetPlayerInteractListener();
         BlockFace blockFace = pListener.GetFaceByName(pName);
-        ArrayList<Block> blocks = ToolUtil.GetSurroundingBlocks(blockFace, block);
+        ArrayList<Block> blocks = ToolUtil.GetSurroundingBlocks(blockFace, block, item);
         
         // Grab durability information
         ItemMeta meta = item.getItemMeta();
