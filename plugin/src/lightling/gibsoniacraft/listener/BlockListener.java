@@ -10,6 +10,7 @@ import org.bukkit.Location;
 
 // Collections
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 // Needed for handling events
@@ -20,6 +21,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import lightling.gibsoniacraft.GibsoniaCraft;
+import lightling.gibsoniacraft.crafting.ChunkLoader;
 import lightling.gibsoniacraft.lib.BlockRef;
 import lightling.gibsoniacraft.util.ToolUtil;
 
@@ -314,10 +316,19 @@ public class BlockListener implements Listener
 	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
 	public void LoaderPlace(BlockPlaceEvent bpEvent)
 	{
-		if (bpEvent.getBlock().hasMetadata("Keeps chunks loaded"))
+		List<String> lore = bpEvent.getItemInHand().getLore();
+		if (lore != null && lore.contains("Keeps chunks loaded"))
 		{
 			Chunk chunk = bpEvent.getBlock().getLocation().getChunk();
-			this.gcPlugin.ForceChunkActive(chunk);
+			
+			// If the chunk was already a loader, drop the loader again and set the block as air
+			if (!this.gcPlugin.ForceChunkActive(chunk))
+			{
+				Block b = bpEvent.getBlock();
+				b.getWorld().dropItemNaturally(b.getLocation(), ChunkLoader.Setup());
+				b.setType(Material.AIR);
+				bpEvent.setCancelled(true);
+			}
 		}
 	}
 	
@@ -328,10 +339,18 @@ public class BlockListener implements Listener
 	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
 	public void LoaderDestroy(BlockBreakEvent bbEvent)
 	{
-		if (bbEvent.getBlock().hasMetadata("Keeps chunks loaded"))
+		if (bbEvent.getBlock().getType() == Material.BEACON)
 		{
 			Chunk chunk = bbEvent.getBlock().getLocation().getChunk();
-			this.gcPlugin.ForceChunkInactive(chunk);
+			
+			// As long as the beacon was acting as a loader, drop the loader
+			if (gcPlugin.ForceChunkInactive(chunk)) 
+			{
+				Block block = bbEvent.getBlock();
+				block.setType(Material.AIR);
+				ItemStack drop = ChunkLoader.Setup();
+				block.getWorld().dropItemNaturally(block.getLocation(), drop);
+			}
 		}
 	}
 }
