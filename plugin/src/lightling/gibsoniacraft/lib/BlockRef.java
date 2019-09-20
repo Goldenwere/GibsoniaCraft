@@ -1,13 +1,17 @@
-package lightling.gibsoniacraft.util;
+package lightling.gibsoniacraft.lib;
 
+// Collections
 import java.util.ArrayList;
+import java.util.HashMap;
 
+// For referencing block types
 import org.bukkit.Material;
 
 /**
  * Contains constant blocks and items of a certain type
  * @author Lightling
  */
+@SuppressWarnings("serial")
 public class BlockRef 
 {
 	/**
@@ -47,6 +51,7 @@ public class BlockRef
 		add(Material.NETHERRACK);
 		add(Material.NETHER_QUARTZ_ORE);
 		add(Material.OBSIDIAN);
+		add(Material.GLOWSTONE);
 	}};
 	
 	/**
@@ -59,6 +64,7 @@ public class BlockRef
 		add(Material.PODZOL);
 		add(Material.GRASS_BLOCK);
 		add(Material.GRASS_PATH);
+		add(Material.MYCELIUM);
 		
 		add(Material.SAND);
 		add(Material.RED_SAND);
@@ -125,5 +131,68 @@ public class BlockRef
 		add(Material.IRON_AXE);
 		add(Material.GOLDEN_AXE);
 		add(Material.DIAMOND_AXE);
+	}};
+	
+	/**
+	 * Stores all valid blocks that fortune affects on hammers and matches them with their corresponding items
+	 */
+	public static HashMap<Material, Material> ValidHammerFortune = new HashMap<Material, Material>()
+	{{
+		put(Material.COAL_ORE, Material.COAL);
+		put(Material.DIAMOND_ORE, Material.DIAMOND);
+		put(Material.EMERALD_ORE, Material.EMERALD);
+		put(Material.NETHER_QUARTZ_ORE, Material.QUARTZ);
+		put(Material.LAPIS_ORE, Material.LAPIS_LAZULI);
+		put(Material.GLOWSTONE, Material.GLOWSTONE_DUST);
+	}};
+	
+	/**
+	 * Stores all valid blocks that fortune affects on excavators and matches them with their corresponding items
+	 */
+	public static HashMap<Material, Material> ValidExcavatorFortune = new HashMap<Material, Material>()
+	{{
+		put(Material.GRAVEL, Material.FLINT);
+	}};
+	
+	/**
+	 * A list of all valid blocks that silk touch affects on hammers
+	 */
+	public static ArrayList<Material> ValidHammerSilkTouch = new ArrayList<Material>()
+	{{
+		add(Material.COAL_ORE);
+		add(Material.IRON_ORE);
+		add(Material.GOLD_ORE);
+		add(Material.DIAMOND_ORE);
+		add(Material.EMERALD_ORE);
+		add(Material.LAPIS_ORE);
+		add(Material.REDSTONE_ORE);
+		
+		add(Material.COBBLESTONE);
+		add(Material.STONE);
+		add(Material.SANDSTONE);
+		add(Material.RED_SANDSTONE);
+		add(Material.ICE);
+		add(Material.BLUE_ICE);
+		add(Material.PACKED_ICE);
+		
+		add(Material.NETHER_QUARTZ_ORE);
+		add(Material.GLOWSTONE);
+	}};
+	
+	/**
+	 * A list of all valid blocks that silk touch affects on excavators
+	 */
+	public static ArrayList<Material> ValidExcavatorSilkTouch = new ArrayList<Material>()
+	{{
+		add(Material.PODZOL);
+		add(Material.GRASS_BLOCK);
+		add(Material.MYCELIUM);
+		//add(Material.GRASS_PATH); (bedrock edition only)
+		
+		add(Material.GRAVEL);
+		add(Material.CLAY);
+		
+		add(Material.SNOW);
+		add(Material.SNOW_BLOCK);
 	}};
 }

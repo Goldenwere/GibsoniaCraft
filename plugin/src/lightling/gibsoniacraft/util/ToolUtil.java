@@ -1,15 +1,17 @@
 package lightling.gibsoniacraft.util;
 
+// Collections
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
 
+// For functionality of various functions
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.World;
+import lightling.gibsoniacraft.lib.BlockRef;
 
 /**
  * Manages calculations regarding added tools
@@ -129,9 +131,10 @@ public class ToolUtil
 	 * Grabs the surrounding blocks in the world from the one that was mined/dug, and adds them to a list
 	 * @param blockFace The face that was targeted (changes the direction of the 3x3 grid)
 	 * @param target The block that was targeted
+	 * @param tool The tool that was used
 	 * @return A list containing the surrounding blocks
 	 */
-	public static ArrayList<Block> GetSurroundingBlocks(BlockFace blockFace, Block target)
+	public static ArrayList<Block> GetSurroundingBlocks(BlockFace blockFace, Block target, ItemStack tool)
 	{
 		// Create the list to work with
 		ArrayList<Block> blocks = new ArrayList<Block>();
@@ -154,7 +157,7 @@ public class ToolUtil
         			for (int worldZ = -1; worldZ <= 1; worldZ++)
         			{
         				Block b = world.getBlockAt(x + worldX, y, z + worldZ);
-        				if (BlockRef.ValidExcavatorBlocks.contains(b.getType()) || BlockRef.ValidHammerBlocks.contains(b.getType()))
+        				if (IsHammerable(tool, b.getType()) || IsExcavatable(tool, b.getType()))
         				{
         					blocks.add(b);
         				}
@@ -169,7 +172,7 @@ public class ToolUtil
         			for (int worldZ = -1; worldZ <= 1; worldZ++)
         			{
         				Block b = world.getBlockAt(x, y + worldY, z + worldZ);
-        				if (BlockRef.ValidExcavatorBlocks.contains(b.getType()) || BlockRef.ValidHammerBlocks.contains(b.getType()))
+        				if (IsHammerable(tool, b.getType()) || IsExcavatable(tool, b.getType()))
         				{
         					blocks.add(b);
         				}
@@ -184,7 +187,7 @@ public class ToolUtil
         			for (int worldY = -1; worldY <= 1; worldY++)
         			{
         				Block b = world.getBlockAt(x + worldX, y + worldY, z);
-        				if (BlockRef.ValidExcavatorBlocks.contains(b.getType()) || BlockRef.ValidHammerBlocks.contains(b.getType()))
+        				if (IsHammerable(tool, b.getType()) || IsExcavatable(tool, b.getType()))
         				{
         					blocks.add(b);
         				}
@@ -239,7 +242,7 @@ public class ToolUtil
 						
 						// Determine if there are still blocks left
 						Block tempAbove = world.getBlockAt(x + i, y + 1, z + j);
-						if (BlockRef.ValidLumberAxeBlocks.contains(temp.getType()))
+						if (BlockRef.ValidLumberAxeBlocks.contains(tempAbove.getType()))
 						{
 							blocksAbove++;
 						}
@@ -263,8 +266,6 @@ public class ToolUtil
 		
 		return blocks;
 	}
-	
-	// TO-DO: Implement enchantments
 	
 	// TO-DO: Implement scythes (3x3 harvest) and tillers (3x3 hoe)
 }
