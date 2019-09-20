@@ -325,8 +325,8 @@ public class BlockListener implements Listener
 			if (!this.gcPlugin.ForceChunkActive(chunk))
 			{
 				Block b = bpEvent.getBlock();
-				b.getWorld().dropItemNaturally(b.getLocation(), ChunkLoader.Setup());
 				b.setType(Material.AIR);
+				bpEvent.getPlayer().sendMessage("[GibsoniaCraft]: This chunk already has a Chunk Loader! Destroy it first.");
 				bpEvent.setCancelled(true);
 			}
 		}
