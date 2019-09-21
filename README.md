@@ -35,6 +35,13 @@ Note: Excavator/Hammer based off of BradzCraft which extends [PowerTool](https:/
 
 - Chunk Loader: If a chunk loader and a beacon are placed in the same chunk, either block will drop the chunk loader first and the beacon next
   - This is a limitation of the server plugin interface: custom block items lose all their custom metadata when placed in the world. There is no known workaround.
+  
+#### Incompatibilities
+
+- Any world protection plugin
+  - Does not yet account for world protecting plugins with GC tools
+- McMMO (PARTIAL)
+  - XP gain only comes from the initially targetted block when using GC tools. This incompatibility cannot be addressed to do no accessible reference to McMMO's BlockListener class (which handles xp gain based on Bukkit's BlockBreakEvent which is only called on the targetted block)
 
 ## License
 [MIT](LICENSE)
