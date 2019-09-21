@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 
@@ -19,6 +20,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import com.gmail.nossr50.mcMMO;
 
 import lightling.gibsoniacraft.GibsoniaCraft;
 import lightling.gibsoniacraft.crafting.ChunkLoader;
@@ -49,7 +51,7 @@ public class BlockListener implements Listener
 	 * Handle the breaking of blocks via the hammer/excavator
 	 * @param bbEvent The event that triggered this method
 	 */
-	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void Break(BlockBreakEvent bbEvent)
 	{
 		// Grab current tool information
