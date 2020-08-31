@@ -16,11 +16,4 @@ Note: Excavator/Hammer based off of BradzCraft which extends [PowerTool](https:/
 
 ## More Information
 
-For incompatibility information, limitations, and guides, see the [wiki](https://github.com/xLightling/GibsoniaCraft/wiki)
-
-## Known Issues
-
-None known as of now
-
-## License
-[MIT](LICENSE)
+For incompatibility information, limitations, and guides, see the [wiki](https://github.com/xLightling/GibsoniaCraft/wiki). GibsoniaCraft is licensed under [the MIT](LICENSE). The plugin is on an indefinite hiatus.
